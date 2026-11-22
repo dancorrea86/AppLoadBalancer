@@ -16,7 +16,7 @@ Este projeto demonstra como criar um Load Balancer utilizando o **Nginx** e 3 in
 
 ---
 
-## 🧪 Como rodar localmente com Docker Compose
+## Como rodar localmente com Docker Compose
 
 Como as imagens já estão publicadas no Docker Hub (`danmcorrea/apploadbalancer-server:latest`), basta ter o Docker instalado, clonar este repositório e executar na pasta do docker-compose:
 
