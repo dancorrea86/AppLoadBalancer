@@ -1,0 +1,11 @@
+@AppLoadBalancer.Server1_HostAddress = http://localhost:5084
+
+GET {{AppLoadBalancer.Server1_HostAddress}}/
+Accept: text/plain
+
+###
+
+GET {{AppLoadBalancer.Server1_HostAddress}}/server
+Accept: text/plain
+
+###
