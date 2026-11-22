@@ -6,11 +6,20 @@ namespace AppLoadBalancer.Server1.Controllers;
 [Route("[controller]")]
 public class ServerController : ControllerBase
 {
+    private readonly IConfiguration _configuration;
+
+    public ServerController(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
+
     [HttpGet]
     [Route("")]
     [Route("/")]
     public IActionResult Get()
     {
-        return Ok("Requisição Servidor 1");
+        var serverName = _configuration["SERVER_NAME"] ?? "Servidor 1";
+        var hostName = Environment.MachineName;
+        return Ok($"Requisição {serverName} (Container Host: {hostName})");
     }
 }
