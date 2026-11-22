@@ -10,51 +10,21 @@ Este projeto demonstra como criar um Load Balancer utilizando o **Nginx** e 3 in
 
 ## Estrutura de Arquivos
 
-- [AppLoadBalancer.Server1/Dockerfile](file:///C:/Users/Daniel/Repositorios/Estudos/AppLoadBalancer/AppLoadBalancer.Server1/Dockerfile): Dockerfile multi-stage da API (.NET 10).
-- [nginx/nginx.conf](file:///C:/Users/Daniel/Repositorios/Estudos/AppLoadBalancer/nginx/nginx.conf): Configuração do Nginx com `upstream` configurado em Round-Robin para os 3 servidores.
-- [docker-compose.yml](file:///C:/Users/Daniel/Repositorios/Estudos/AppLoadBalancer/docker-compose.yml): Orquestração dos 4 containers (1 Nginx + 3 réplicas da API).
-
----
-
-## 🚀 Como subir a imagem no Docker Hub
-
-### 1. Fazer login no Docker Hub
-```bash
-docker login
-```
-
-### 2. Gerar a imagem com a tag do seu usuário
-Substitua `<seu-usuario>` pelo seu nome de usuário no Docker Hub:
-
-```bash
-docker build -t <seu-usuario>/apploadbalancer-server:latest -f AppLoadBalancer.Server1/Dockerfile AppLoadBalancer.Server1
-```
-
-### 3. Enviar (Push) para o Docker Hub
-```bash
-docker push <seu-usuario>/apploadbalancer-server:latest
-```
+- `AppLoadBalancer.Server1/Dockerfile`: Dockerfile multi-stage da API (.NET 10).
+- `nginx/nginx.conf`: Configuração do Nginx com `upstream` configurado em Round-Robin para os 3 servidores.
+- `docker-compose.yml`: Orquestração dos 4 containers (1 Nginx + 3 réplicas da API).
 
 ---
 
 ## 🧪 Como rodar localmente com Docker Compose
 
-### Opção A: Usando a imagem local (build automático)
-Basta executar:
+Como as imagens já estão publicadas no Docker Hub (`danmcorrea/apploadbalancer-server:latest`), basta ter o Docker instalado, clonar este repositório e executar na pasta do docker-compose:
+
 ```bash
 docker compose up -d
 ```
 
-### Opção B: Usando a sua imagem do Docker Hub
-Defina a variável `DOCKER_IMAGE` antes de subir:
-```bash
-# PowerShell
-$env:DOCKER_IMAGE="<seu-usuario>/apploadbalancer-server:latest"
-docker compose up -d
-
-# Bash/Linux
-DOCKER_IMAGE="<seu-usuario>/apploadbalancer-server:latest" docker compose up -d
-```
+> O Docker fará o download automático das imagens necessárias e iniciará os 3 servidores da API e o balanceador Nginx.
 
 ---
 
@@ -82,4 +52,26 @@ Requisição Servidor 3 (Container Host: 3addba4b2084)
 Para parar os containers:
 ```bash
 docker compose down
+```
+
+---
+
+## 🛠️ Para Desenvolvedores: Como gerar e subir uma nova imagem
+
+Caso você queira alterar o código da API e publicar a sua própria imagem no Docker Hub:
+
+### 1. Fazer login no Docker Hub
+```bash
+docker login
+```
+
+### 2. Gerar a imagem com a sua tag
+Substitua `<seu-usuario>` pelo seu nome de usuário no Docker Hub:
+```bash
+docker build -t <seu-usuario>/apploadbalancer-server:latest -f AppLoadBalancer.Server1/Dockerfile AppLoadBalancer.Server1
+```
+
+### 3. Enviar (Push) para o Docker Hub
+```bash
+docker push <seu-usuario>/apploadbalancer-server:latest
 ```
